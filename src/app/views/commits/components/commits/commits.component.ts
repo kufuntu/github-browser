@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest, Subject, switchMap } from 'rxjs';
 import { GithubSearch } from '../../../../core/github-search/github-search.service';
 
 @Component({
@@ -6,10 +8,24 @@ import { GithubSearch } from '../../../../core/github-search/github-search.servi
   templateUrl: './commits.component.html',
   styleUrls: ['./commits.component.scss'],
 })
-export class CommitsComponent implements OnInit {
-  commits$ = this.githubSearch.searchCommits();
+export class CommitsComponent {
+  keyword$ = new Subject<string>();
 
-  constructor(private githubSearch: GithubSearch) {}
+  commits$ = combineLatest([
+    this.keyword$, 
+    this.activatedRoute.params
+  ]).pipe(
+    switchMap(([keyword, params]) => {
+      return this.githubSearch.searchCommits(params['project'], keyword);
+    })
+  );
 
-  ngOnInit(): void {}
+  constructor(
+    private githubSearch: GithubSearch,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  onSearch(keyword: string) {
+    this.keyword$.next(keyword);
+  }
 }

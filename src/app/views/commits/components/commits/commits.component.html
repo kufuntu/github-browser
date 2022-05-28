@@ -1,3 +1,4 @@
+<app-search-field (search)="onSearch($event)"></app-search-field>
 <ng-container *ngIf="commits$ | async; let commits">
   <app-commits-table
     [commits]="commits.items"

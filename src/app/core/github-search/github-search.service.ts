@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { GithubRepository } from '../types/repository';
 import { GithubResponse } from '../types/response';
 import { environment } from '../../../environments/environment';
@@ -21,14 +21,15 @@ export class GithubSearch {
     );
   }
 
-  public searchCommits(): Observable<GithubResponse<GithubCommit>> {
+  public searchCommits(repo:string, keyword: string): Observable<GithubResponse<GithubCommit>> {
     const headers = new HttpHeaders().set(
       'Accept',
       'application/vnd.github.v3+json'
     );
+    const query = `repo:${repo} ${keyword}`;
     return this.http.get<GithubResponse<GithubCommit>>(
-      `${environment.githubUrl}/search/commits?q=repo:octocat/Spoon-Knife+css`,
-      { headers }
+      `${environment.githubUrl}/search/commits`,
+      { headers, params: { q: query } }
     );
   }
 }
