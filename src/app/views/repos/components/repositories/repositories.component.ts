@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subject, switchMap } from 'rxjs';
 import { GithubSearch } from '../../../../core/github-search/github-search.service';
 
 @Component({
@@ -6,10 +7,16 @@ import { GithubSearch } from '../../../../core/github-search/github-search.servi
   templateUrl: './repositories.component.html',
   styleUrls: ['./repositories.component.scss'],
 })
-export class RepositoriesComponent implements OnInit {
-  repositories$ = this.githubSearch.searchRepositories();
+export class RepositoriesComponent {
+  keyword$ = new Subject<string>();
+
+  repositories$ = this.keyword$.pipe(
+    switchMap(keyword => this.githubSearch.searchRepositories(keyword))
+  );
 
   constructor(private githubSearch: GithubSearch) {}
 
-  ngOnInit(): void {}
+  onSearch(keyword: string) {
+    this.keyword$.next(keyword);
+  }
 }

@@ -1,3 +1,4 @@
+<app-search-field (search)="onSearch($event)"></app-search-field>
 <ng-container *ngIf="repositories$ | async; let repositories">
   <app-repositories-table
     [repositories]="repositories.items"

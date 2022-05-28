@@ -10,14 +10,15 @@ import { GithubCommit } from '../types/commit';
 export class GithubSearch {
   constructor(private http: HttpClient) {}
 
-  public searchRepositories(): Observable<GithubResponse<GithubRepository>> {
+  public searchRepositories(keyword: string): Observable<GithubResponse<GithubRepository>> {
     const headers = new HttpHeaders().set(
       'Accept',
       'application/vnd.github.v3+json'
     );
+    const query = keyword;
     return this.http.get<GithubResponse<GithubRepository>>(
-      `${environment.githubUrl}/search/repositories?q=tetris`,
-      { headers }
+      `${environment.githubUrl}/search/repositories`,
+      { headers, params: { q: query } }
     );
   }
 
