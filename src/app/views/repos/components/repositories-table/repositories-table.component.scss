@@ -1,0 +1,9 @@
+[mat-table] {
+  width: 100%;
+  
+  & ::ng-deep {
+    .mat-column-full_name {
+      width: 80%;
+    }
+  }
+}

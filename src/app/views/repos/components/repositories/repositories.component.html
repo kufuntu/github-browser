@@ -1,1 +1,5 @@
-<p>repositories works!</p>
+<ng-container *ngIf="repositories$ | async; let repositories">
+  <app-repositories-table
+    [repositories]="repositories.items"
+  ></app-repositories-table>
+</ng-container>

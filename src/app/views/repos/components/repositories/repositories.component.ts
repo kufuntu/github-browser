@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GithubSearch } from '../../../../core/github-search/github-search.service';
 
 @Component({
   selector: 'app-repositories',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./repositories.component.scss'],
 })
 export class RepositoriesComponent implements OnInit {
-  constructor() {}
+  repositories$ = this.githubSearch.searchRepositories();
+
+  constructor(private githubSearch: GithubSearch) {}
 
   ngOnInit(): void {}
 }
