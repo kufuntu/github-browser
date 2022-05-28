@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '../../shared/shared.module';
 import { routes } from './routes';
 import { CommitsComponent } from './components/commits/commits.component';
+import { CommitsTableComponent } from './components/commits-table/commits-table.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { CommitsComponent } from './components/commits/commits.component';
     RouterModule.forChild(routes),
     MatTableModule,
   ],
-  declarations: [CommitsComponent],
+  declarations: [CommitsComponent, CommitsTableComponent],
 })
 export class CommitsModule {}

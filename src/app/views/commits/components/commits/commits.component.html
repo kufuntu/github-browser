@@ -1,1 +1,5 @@
-<p>commits works!</p>
+<ng-container *ngIf="commits$ | async; let commits">
+  <app-commits-table
+    [commits]="commits.items"
+  ></app-commits-table>
+</ng-container>
