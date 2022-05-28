@@ -5,7 +5,8 @@
 import { EnvironmentType } from './type';
 
 export const environment: EnvironmentType = {
-  production: false
+  production: false,
+  githubUrl: 'https://api.github.com'
 };
 
 /*
