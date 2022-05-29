@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -12,6 +12,7 @@ import {
   styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
+  @Input() placeholder: string = 'Search...';
   @Output() search = new EventEmitter<string>();
   private searchAsYouType = new Subject<string>();
   private textValue: string = '';

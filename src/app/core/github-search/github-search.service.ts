@@ -16,8 +16,14 @@ const EMPTY_RESPONSE: GithubResponse = {
 export class GithubSearch {
   constructor(private http: HttpClient) {}
 
-  public searchRepositories(keyword: string): Observable<GithubResponse<GithubRepository>> {
-    const query = keyword;
+  public searchRepositories(keyword: string, language: string | null, stars: number | null): Observable<GithubResponse<GithubRepository>> {
+    let query = keyword;
+    if (language) {
+      query += ` language:${language}`;
+    }
+    if (stars) {
+      query += ` stars:>=${stars}`;
+    }
     return this.http.get<GithubResponse<GithubRepository>>(
       `${environment.githubUrl}/search/repositories`,
       { params: { q: query } }
